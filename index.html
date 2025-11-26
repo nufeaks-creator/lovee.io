@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Открытка для тебя</title>
   <style>
     body {
@@ -11,59 +12,59 @@
       color: #d6336c;
       text-align: center;
       overflow-x: hidden;
-      transform: scale(1.2);   /* эффект "лупы" */
-      transform-origin: top center;
-    }
-
-    /* Центральный блок */
-    .center-block {
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 0.5em;
+      min-height: 100vh;
     }
-    .center-block h1 {
-      font-size: 6em; /* ещё больше */
-      margin: 0.1em 0;
-      color: #d6336c;
-      animation: fadeIn 2s ease forwards;
+
+    /* Верхний блок */
+    .top-block {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* строго по центру экрана */
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 2.4em;
+      margin: 0.2em 0;
+      animation: fadeIn 1.5s ease forwards;
     }
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
+      from { opacity: 0; transform: translateY(-10px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .center-block p {
-      font-size: 2em;
+    .subtitle {
+      font-size: 1.3em;
       margin: 0.2em 0;
     }
 
-    /* Таймер */
     #countdown {
-      font-size: 1.8em;
-      margin-bottom: 0.5em; /* уменьшенный отступ */
+      font-size: 1.2em;
+      margin: 0.3em 0;
     }
 
-    /* Остальной текст */
-    .content {
-      max-width: 95%;
-      margin: 0.5em auto;
-      padding: 0.3em;
+    /* Нижний блок */
+    .bottom-block {
+      padding: 0.3em 0;
     }
+
     .love-text {
       opacity: 0;
-      transform: translateY(40px); /* чуть ниже, чтобы появлялось при скролле */
-      transition: all 0.8s ease;
-      font-size: 1.6em;
-      line-height: 1.5em;
-      margin: 0.5em auto;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+      font-size: 1em;
+      line-height: 1.4em;
+      margin: 0.4em auto;
       max-width: 95%;
       padding: 0.6em;
       background: #fff0f6;
       border-radius: 8px;
       box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      box-sizing: border-box;
+      text-align: center;
     }
     .love-text.visible {
       opacity: 1;
@@ -71,14 +72,17 @@
     }
 
     .love-image {
-      margin: 0.5em auto;
-      max-width: 95%;
-      border-radius: 10px;
+      margin: 0.4em auto 0.8em;
+      width: 100%;
+      max-width: 700px;
+      border-radius: 12px;
       box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-      border: 2px solid #ff99cc;
+      border: 3px solid #ff99cc;
       opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.8s ease;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
+      box-sizing: border-box;
+      display: block;
     }
     .love-image.visible {
       opacity: 1;
@@ -99,28 +103,29 @@
       100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
     }
 
-    /* Адаптивность */
+    /* Мобильные устройства */
     @media (max-width: 600px) {
-      body {
-        transform: scale(1.3); /* ещё ближе на мобильных */
+      .top-block {
+        justify-content: center; /* строго по центру */
       }
-      .center-block h1 { font-size: 4.5em; }
-      .center-block p { font-size: 1.8em; }
-      .love-text { font-size: 1.4em; }
-      #countdown { font-size: 1.6em; margin-bottom: 0.3em; }
+      h1 { font-size: 2.8em; } /* ещё крупнее на телефоне */
+      .subtitle { font-size: 1.3em; }
+      #countdown { font-size: 1.1em; }
+      .love-text { font-size: 1em; margin: 0.2em auto; }
+      .love-image { width: 100%; max-width: 95%; margin: 0.2em auto; }
     }
   </style>
 </head>
 <body>
-  <!-- Центральный блок -->
-  <div class="center-block">
+  <!-- Верхний блок -->
+  <div class="top-block">
     <h1>Я люблю тебя 💕</h1>
-    <p>И жду с нетерпением твоего возвращения!</p>
+    <div class="subtitle">И жду с нетерпением твоего возвращения!</div>
     <div id="countdown"></div>
   </div>
 
-  <!-- Остальной контент -->
-  <div class="content">
+  <!-- Нижний блок -->
+  <div class="bottom-block">
     <div class="love-text" id="loveText">
       Эмиля, ты очень дорога мне, очень жду тебя с санатория, ты у меня самая милая и веселенькая, обожаю твои чудные глаза, фигуру, да вообще всё в тебе) Зая, безгранично счастлив за то, что ты просто есть у меня, очень люблю тебя, самая хорошенькая моя кися
     </div>
@@ -132,7 +137,7 @@
 
   <script>
     // Обратный отсчёт
-    const targetDate = new Date("2025-12-13T00:00:00");
+    const targetDate = new Date("2025-12-13T00:00:00Z");
     function updateCountdown() {
       const now = new Date();
       const diff = targetDate - now;
@@ -161,16 +166,20 @@
     }
     setInterval(createHeart, 500);
 
-    // Анимация появления текста и картинки при скролле
+    // Анимация появления текста и картинки при небольшом скролле
     function revealOnScroll(el) {
       const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight - 150) { // порог выше, появляется только при пролистывании
+      if (rect.top < window.innerHeight - 50) {
         el.classList.add("visible");
       }
     }
     const loveText = document.getElementById("loveText");
     const loveImage = document.getElementById("loveImage");
     window.addEventListener("scroll", () => {
+      revealOnScroll(loveText);
+      revealOnScroll(loveImage);
+    });
+    window.addEventListener("load", () => {
       revealOnScroll(loveText);
       revealOnScroll(loveImage);
     });
