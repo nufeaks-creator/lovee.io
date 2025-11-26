@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Открытка для тебя</title>
+  <style>
+    body {
+      margin: 0;
+      background: #ffe6f0;
+      font-family: 'Arial', sans-serif;
+      color: #d6336c;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    /* Центральный блок */
+    .center-block {
+      min-height: 100vh; /* занимает весь экран */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .center-block h1 {
+      font-size: 4em; /* увеличено */
+      margin: 0.2em 0;
+      color: #d6336c;
+      animation: fadeIn 2s ease forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Остальной текст */
+    .content {
+      max-width: 700px;
+      margin: 1em auto;
+      padding: 1em;
+    }
+    .content p {
+      font-size: 1.6em;
+      margin: 0.5em 0;
+    }
+    #countdown {
+  font-size: 1.2em;
+  margin-bottom: 0.1em; /* минимальный отступ */
+}
+
+.love-text {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: all 0.6s ease;
+  font-size: 1em;
+  line-height: 1.4em;
+  margin: 0.2em auto; /* почти без отступа */
+  max-width: 480px;
+  padding: 0.4em; /* минимальная рамка */
+  background: #fff0f6;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+.love-text.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.love-image {
+  margin: 0.2em auto 0.4em; /* минимальные отступы сверху и снизу */
+  max-width: 90%;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  border: 2px solid #ff99cc;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: all 0.6s ease;
+}
+.love-image.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+
+
+
+    /* Сердечки */
+    .heart {
+      position: fixed;
+      bottom: -50px;
+      font-size: 24px;
+      animation: floatUp 6s linear infinite;
+      color: #ff4d88;
+      pointer-events: none;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
+    }
+
+    /* Адаптивность */
+    @media (max-width: 600px) {
+      .center-block h1 { font-size: 2.5em; }
+      .love-text { font-size: 1em; max-width: 90%; }
+      #countdown { font-size: 1.2em; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Центральный блок -->
+  <div class="center-block">
+    <h1>Я люблю тебя 💕</h1>
+    <p>И жду с нетерпением твоего возвращения!</p>
+    <div id="countdown"></div>
+  </div>
+
+  <!-- Остальной контент -->
+  <div class="content">
+    <div class="love-text" id="loveText">
+      Эмиля, ты очень дорога мне, очень жду тебя с санатория, ты у меня самая милая и веселенькая, обожаю твои чудные глаза, фигуру, да вообще всё в тебе) Зая, безгранично счастлив за то, что ты просто есть у меня, очень люблю тебя, самая хорошенькая моя кися
+    </div>
+
+    <img class="love-image" id="loveImage"
+      src="https://yastatic.net/naydex/yandex-search/16JG4kc64/bb85bbfGUy/RfZxma-iblA0ahSU4ppAFgo5yAcd9Qk3UIR80_A8cuP9zrBTWykrjBKsDw0tBxG_hieVrQGLwalM-6pqGTV4ZVWlMtXs43cPZyEO3q6dSRIVctVPHbIVZVuTZ9H-KXi7pJq3OmFdXv151Wt1Wi888oYrla5Llpa2JZE"
+      alt="Милая картинка">
+  </div>
+
+  <script>
+    // Обратный отсчёт
+    const targetDate = new Date("2025-12-13T00:00:00");
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetDate - now;
+      if (diff <= 0) {
+        document.getElementById("countdown").textContent = "Ты уже рядом!";
+        return;
+      }
+      const d = Math.floor(diff / (1000*60*60*24));
+      const h = Math.floor((diff / (1000*60*60)) % 24);
+      const m = Math.floor((diff / (1000*60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+      document.getElementById("countdown").textContent = `${d} д ${h} ч ${m} м ${s} с`;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Сердечки
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent = "❤";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (4 + Math.random()*3) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 7000);
+    }
+    setInterval(createHeart, 500);
+
+    // Анимация появления текста и картинки при скролле
+    function revealOnScroll(el) {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 100) {
+        el.classList.add("visible");
+      }
+    }
+    const loveText = document.getElementById("loveText");
+    const loveImage = document.getElementById("loveImage");
+    window.addEventListener("scroll", () => {
+      revealOnScroll(loveText);
+      revealOnScroll(loveImage);
+    });
+  </script>
+</body>
+</html>
