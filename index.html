@@ -19,16 +19,16 @@
 
     /* Верхний блок */
     .top-block {
-      flex: 1;
+      height: 100vh;             /* занимает всю высоту экрана */
       display: flex;
       flex-direction: column;
-      justify-content: center; /* ближе к середине */
+      justify-content: center;   /* строго по центру */
       align-items: center;
-      padding-top: 1em;
+      padding: 0;
     }
 
     h1 {
-      font-size: 2.2em;
+      font-size: 2.6em;
       margin: 0.2em 0;
       animation: fadeIn 1.5s ease forwards;
     }
@@ -49,7 +49,7 @@
 
     /* Нижний блок */
     .bottom-block {
-      padding: 0.3em 0; /* чуть ниже */
+      padding: 1em 0;
     }
 
     .love-text {
@@ -106,11 +106,7 @@
 
     /* Мобильные устройства */
     @media (max-width: 600px) {
-      .top-block {
-        justify-content: center; /* строго по центру */
-        padding-top: 0; 
-      }
-      h1 { font-size: 2.6em; } /* ещё крупнее на телефоне */
+      h1 { font-size: 2.8em; }
       .subtitle { font-size: 1.2em; }
       #countdown { font-size: 1.1em; }
       .love-text { font-size: 1em; margin: 0.2em auto; }
@@ -168,7 +164,7 @@
     }
     setInterval(createHeart, 500);
 
-    // Анимация появления текста и картинки при небольшом скролле
+    // Анимация появления текста и картинки при скролле
     function revealOnScroll(el) {
       const rect = el.getBoundingClientRect();
       if (rect.top < window.innerHeight - 50) {
