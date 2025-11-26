@@ -22,12 +22,13 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      justify-content: center; /* строго по центру экрана */
+      justify-content: center; /* ближе к середине */
       align-items: center;
+      padding-top: 1em;
     }
 
     h1 {
-      font-size: 2.4em;
+      font-size: 2.2em;
       margin: 0.2em 0;
       animation: fadeIn 1.5s ease forwards;
     }
@@ -37,7 +38,7 @@
     }
 
     .subtitle {
-      font-size: 1.3em;
+      font-size: 1.2em;
       margin: 0.2em 0;
     }
 
@@ -48,7 +49,7 @@
 
     /* Нижний блок */
     .bottom-block {
-      padding: 0.3em 0;
+      padding: 0.3em 0; /* чуть ниже */
     }
 
     .love-text {
@@ -107,9 +108,10 @@
     @media (max-width: 600px) {
       .top-block {
         justify-content: center; /* строго по центру */
+        padding-top: 0; 
       }
-      h1 { font-size: 2.8em; } /* ещё крупнее на телефоне */
-      .subtitle { font-size: 1.3em; }
+      h1 { font-size: 2.6em; } /* ещё крупнее на телефоне */
+      .subtitle { font-size: 1.2em; }
       #countdown { font-size: 1.1em; }
       .love-text { font-size: 1em; margin: 0.2em auto; }
       .love-image { width: 100%; max-width: 95%; margin: 0.2em auto; }
