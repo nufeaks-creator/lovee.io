@@ -11,7 +11,7 @@
       font-family: 'Arial', sans-serif;
       color: #d6336c;
       text-align: center;
-      overflow-x: hidden;
+      overflow-x: hidden; /* убираем горизонтальный скролл */
       display: flex;
       flex-direction: column;
       min-height: 100vh;
@@ -24,11 +24,11 @@
       flex-direction: column;
       justify-content: flex-start; /* выше середины */
       align-items: center;
-      padding-top: 3em;
+      padding-top: 2em;
     }
 
     h1 {
-      font-size: 2em;
+      font-size: 2.2em; /* крупнее */
       margin: 0.2em 0;
       animation: fadeIn 1.5s ease forwards;
     }
@@ -65,7 +65,7 @@
       border-radius: 8px;
       box-shadow: 0 1px 4px rgba(0,0,0,0.1);
       box-sizing: border-box;
-      text-align: center; /* строго по центру */
+      text-align: center;
     }
     .love-text.visible {
       opacity: 1;
@@ -74,10 +74,11 @@
 
     .love-image {
       margin: 0.5em auto 1em;
-      max-width: 95%;
-      border-radius: 10px;
+      width: 100%;        /* картинка занимает всю ширину */
+      max-width: 700px;   /* но не больше 700px */
+      border-radius: 12px;
       box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-      border: 2px solid #ff99cc;
+      border: 3px solid #ff99cc;
       opacity: 0;
       transform: translateY(20px);
       transition: all 0.6s ease;
@@ -106,15 +107,14 @@
     /* Мобильные устройства */
     @media (max-width: 600px) {
       .top-block {
-        padding-top: 2em; /* выше */
-        justify-content: flex-start;
-        align-items: center; /* строго по центру */
+        padding-top: 1.5em;
+        align-items: center;
       }
-      h1 { font-size: 1.8em; }
-      .subtitle { font-size: 1em; }
+      h1 { font-size: 1.9em; }
+      .subtitle { font-size: 1.1em; }
       #countdown { font-size: 1em; }
       .love-text { font-size: 0.95em; margin: 0.3em auto; }
-      .love-image { margin: 0.3em auto; }
+      .love-image { width: 100%; max-width: 95%; margin: 0.3em auto; }
     }
   </style>
 </head>
